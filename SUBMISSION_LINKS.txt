@@ -1,0 +1,10 @@
+PE6201 End-of-Course Project — HR-Ask
+Student: Kang Xingyao | Section C
+
+GitHub repository: https://github.com/kxy-creator/PE6201-End-of-project
+Video: docs/HR_Ask_English_Demo.mp4 included in this package
+Optional hosted video URL: NOT YET UPLOADED
+Self-appraisal: student review and confirmation required
+Course platform submission: NOT PERFORMED
+
+Do not submit invented or placeholder links. GitHub code publication is a course requirement.

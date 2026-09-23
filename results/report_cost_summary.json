@@ -1,0 +1,48 @@
+{
+  "evidence": "results/openrouter.json",
+  "api_responses": 25,
+  "provider_reported_cost_usd": 0.0036039,
+  "mean_per_api_response_usd": 0.000144156,
+  "two_saved_runs_cost_usd": 0.00618615,
+  "api_median_elapsed_ms": 2134.454,
+  "rule_maintenance": {
+    "basis": "Instructor feedback: 15 to 20 regex rules rewritten every quarter.",
+    "rules_per_quarter_range": [
+      15,
+      20
+    ],
+    "rules_per_quarter_midpoint": 17.5,
+    "assumed_minutes_per_rule": 20,
+    "assumed_labour_rate_usd_per_hour": 25,
+    "quarterly_maintenance_hours": 5.833333333333333,
+    "quarterly_maintenance_cost_usd": 145.83333333333331,
+    "monthly_maintenance_cost_usd": 48.61111111111111
+  },
+  "assumptions": {
+    "monthly_enquiries": 400,
+    "usd_hour": 25,
+    "minutes_saved": 5,
+    "monthly_api_cost_usd": 0.057662399999999996,
+    "setup_usd": 2000
+  },
+  "sensitivity": [
+    {
+      "useful_resolution_rate": 0.2,
+      "gross_value_usd": 166.66666666666669,
+      "net_monthly_value_usd": 117.99789315555557,
+      "setup_payback_months": 16.949455168351335
+    },
+    {
+      "useful_resolution_rate": 0.5,
+      "gross_value_usd": 416.6666666666667,
+      "net_monthly_value_usd": 367.9978931555556,
+      "setup_payback_months": 5.434813723660598
+    },
+    {
+      "useful_resolution_rate": 0.8,
+      "gross_value_usd": 666.6666666666667,
+      "net_monthly_value_usd": 617.9978931555556,
+      "setup_payback_months": 3.2362569875243605
+    }
+  ]
+}

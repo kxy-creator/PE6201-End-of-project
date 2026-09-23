@@ -1,0 +1,55 @@
+{
+  "keyword_faq": {
+    "passed": 18,
+    "total": 25,
+    "rate": 0.72,
+    "definition": "First matching keyword returns one fixed policy section; section-ID hit only."
+  },
+  "threshold_sweep": [
+    {
+      "threshold": 0,
+      "task_success": {
+        "passed": 30,
+        "total": 30,
+        "rate": 1.0
+      },
+      "escalations": 3
+    },
+    {
+      "threshold": 0.08,
+      "task_success": {
+        "passed": 30,
+        "total": 30,
+        "rate": 1.0
+      },
+      "escalations": 3
+    },
+    {
+      "threshold": 0.2,
+      "task_success": {
+        "passed": 26,
+        "total": 30,
+        "rate": 0.8667
+      },
+      "escalations": 7
+    },
+    {
+      "threshold": 0.4,
+      "task_success": {
+        "passed": 14,
+        "total": 30,
+        "rate": 0.4667
+      },
+      "escalations": 19
+    },
+    {
+      "threshold": 0.65,
+      "task_success": {
+        "passed": 5,
+        "total": 30,
+        "rate": 0.1667
+      },
+      "escalations": 28
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+Package verification on 23 September 2026
+Core source and development dataset SHA-256 match the saved live evidence.
+Software regression tests: 15/15 passed in the staging folder.
+Offline development reproduction: 30/30 engineering checks.
+Offline challenge reproduction: 10/12 engineering checks.
+New informal diagnostics: 7/12 engineering checks.
+Notebook Python cells compile; model cell not executed.
+Policy judgment aggregate and source-file binding verified by scripts/summarize_evidence.py.
+Credential-pattern scan of text files and DOCX XML found no matched API or GitHub keys.
+No fresh live API calls, GitHub publication or course submission performed during packaging.
+Final report rendered and visually reviewed: 8 pages; self-appraisal: 1 page.
+English video: 1920x1080 H.264/AAC, 309.35 seconds; full decode completed without errors.

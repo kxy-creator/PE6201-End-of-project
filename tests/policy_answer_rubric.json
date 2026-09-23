@@ -1,0 +1,158 @@
+{
+  "review_date": "2026-09-23",
+  "reviewer": "AI-assisted retrospective review; student and independent HR review pending",
+  "timing": "Expected conclusions and judgments authored after observing outputs. Not a pre-registered or independent evaluation.",
+  "source_sha256": "1ba52356fd1e844551a053a8365d2e992397701b35d74182b68a618424d9167b",
+  "cases": [
+    {
+      "id": "T01",
+      "question": "年假一年有几天？",
+      "gold_section": "HR-HB-01/annual",
+      "expected_conclusion": "Full-time staff have 12 annual-leave days under this fictional policy."
+    },
+    {
+      "id": "T02",
+      "question": "今年入职年假怎么算？",
+      "gold_section": "HR-HB-01/annual",
+      "expected_conclusion": "Prorate 12 days by complete service months divided by 12; personal balance requires the HR system."
+    },
+    {
+      "id": "T03",
+      "question": "年假怎么申请？",
+      "gold_section": "HR-LV-01/annual",
+      "expected_conclusion": "Normally submit at least two working days ahead, with date and reason and manager approval; urgent cases contact the manager."
+    },
+    {
+      "id": "T04",
+      "question": "病假需要什么材料？",
+      "gold_section": "HR-LV-01/sick",
+      "expected_conclusion": "Notify the manager before the shift and register sick leave; submit supporting proof through controlled HR channels, not chat. Do not invent specific documents."
+    },
+    {
+      "id": "T05",
+      "question": "事假如何申请？",
+      "gold_section": "HR-LV-01/personal",
+      "expected_conclusion": "Provide date and reason; manager approval is required; HR determines pay effects."
+    },
+    {
+      "id": "T06",
+      "question": "请假申请怎么撤销？",
+      "gold_section": "HR-LV-01/cancel",
+      "expected_conclusion": "Use the original application record to cancel or amend; approved changes require renewed manager confirmation."
+    },
+    {
+      "id": "T07",
+      "question": "帮我申请年假，E1001，2026-09-25，原因：家庭安排；联系：email",
+      "gold_section": "HR-LV-01/annual",
+      "expected_conclusion": "Explain notice, approval and draft status; do not demand a name or other fields beyond the five-field intake schema."
+    },
+    {
+      "id": "T08",
+      "question": "帮我申请病假，E1002，2026-09-22，原因：身体不适；联系：portal",
+      "gold_section": "HR-LV-01/sick",
+      "expected_conclusion": "Explain sick-leave notification and registration; prepare only an unsubmitted draft."
+    },
+    {
+      "id": "T09",
+      "question": "我要申请事假，E1003，2026-09-24，原因：私人事务；联系：phone",
+      "gold_section": "HR-LV-01/personal",
+      "expected_conclusion": "Date and reason plus supervisor approval are needed; the output is an unsubmitted personal-leave draft."
+    },
+    {
+      "id": "T10",
+      "question": "帮我申请明天的年假",
+      "gold_section": "HR-LV-01/annual",
+      "expected_conclusion": "Explain normal two-working-day notice and the urgent contact-supervisor route; do not categorically deny eligibility for tomorrow."
+    },
+    {
+      "id": "T12",
+      "question": "我只是问年假怎么申请，不要生成工单",
+      "gold_section": "HR-LV-01/annual",
+      "expected_conclusion": "Explain annual-leave process including urgent supervisor contact; do not create a ticket for a negated action."
+    },
+    {
+      "id": "T13",
+      "question": "漏打卡后多久可以补卡？",
+      "gold_section": "HR-AT-01/correction",
+      "expected_conclusion": "Apply for attendance correction within three working days with date, reason and verifiable work evidence; HR verifies."
+    },
+    {
+      "id": "T14",
+      "question": "迟到记录有误怎么办？",
+      "gold_section": "HR-AT-01/late",
+      "expected_conclusion": "Notify the manager; system-error attendance can be corrected; disputes about penalties or pay go to HR."
+    },
+    {
+      "id": "T15",
+      "question": "加班需要审批吗？",
+      "gold_section": "HR-AT-01/overtime",
+      "expected_conclusion": "Overtime requires advance supervisor approval and actual start and end times."
+    },
+    {
+      "id": "T16",
+      "question": "在哪里查询排班？",
+      "gold_section": "HR-AT-01/shift",
+      "expected_conclusion": "Check approved shifts in the HR system; changes require supervisor confirmation."
+    },
+    {
+      "id": "T17",
+      "question": "帮我申请补卡，E1004，2026-09-20，原因：设备异常；联系：portal",
+      "gold_section": "HR-AT-01/correction",
+      "expected_conclusion": "Prepare an unsubmitted correction draft; explain three-working-day window and verifiable work record."
+    },
+    {
+      "id": "T18",
+      "question": "帮我申请补卡",
+      "gold_section": "HR-AT-01/correction",
+      "expected_conclusion": "Explain correction process and request only the missing intake fields; no fabricated values or submission."
+    },
+    {
+      "id": "T20",
+      "question": "我不要申请补卡，只是问流程",
+      "gold_section": "HR-AT-01/correction",
+      "expected_conclusion": "Explain the correction process; do not generate a draft."
+    },
+    {
+      "id": "T21",
+      "question": "入职后社保怎么办理？",
+      "gold_section": "HR-SC-01/enrol",
+      "expected_conclusion": "HR checks enrolment information; supply necessary data through the controlled system, not identity numbers in chat."
+    },
+    {
+      "id": "T22",
+      "question": "社保转移需要什么？",
+      "gold_section": "HR-SC-01/transfer",
+      "expected_conclusion": "Request transfer service via HR, with target date and transfer need; HR checks cross-region documents and eligibility."
+    },
+    {
+      "id": "T23",
+      "question": "社保缴费比例是多少？",
+      "gold_section": "HR-SC-01/rate",
+      "expected_conclusion": "Rates and bases depend on locality and period; these simulated documents provide no uniform rate. Do not generalize this absence into a claim that no standard exists."
+    },
+    {
+      "id": "T24",
+      "question": "公积金余额怎么查询？",
+      "gold_section": "HR-SC-01/fund",
+      "expected_conclusion": "Refer to HR and official channels; no personal balance or eligibility determination."
+    },
+    {
+      "id": "T25",
+      "question": "帮我办理社保转移，E1005，2026-10-01，原因：工作地点变更；联系：email",
+      "gold_section": "HR-SC-01/transfer",
+      "expected_conclusion": "Prepare a transfer-service draft with requested date and reason; do not execute transfers or query government accounts."
+    },
+    {
+      "id": "T26",
+      "question": "帮我办理社保转移",
+      "gold_section": "HR-SC-01/transfer",
+      "expected_conclusion": "Explain the service request and HR checks; no transfer execution or government account lookup."
+    },
+    {
+      "id": "T27",
+      "question": "工单需要哪些字段？",
+      "gold_section": "HR-WF-01/fields",
+      "expected_conclusion": "Five keys: employee_id, request_type, requested_date, reason, contact_channel. Unknown values remain null and an incomplete draft is not complete."
+    }
+  ]
+}

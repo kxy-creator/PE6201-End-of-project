@@ -1,0 +1,108 @@
+[
+  {
+    "id": "I01",
+    "question": "need leave tmr, family thing",
+    "intent": "draft",
+    "gold_section": "HR-LV-01/personal",
+    "complete": false,
+    "design_note": "English abbreviation and omitted formal term",
+    "request_type": "personal_leave"
+  },
+  {
+    "id": "I02",
+    "question": "how much anual leave do i get?",
+    "intent": "consult",
+    "gold_section": "HR-HB-01/annual",
+    "complete": false,
+    "design_note": "English misspelling"
+  },
+  {
+    "id": "I03",
+    "question": "how many days of paid time off?",
+    "intent": "consult",
+    "gold_section": "HR-HB-01/annual",
+    "complete": false,
+    "design_note": "English alias"
+  },
+  {
+    "id": "I04",
+    "question": "昨天忘刷工牌了，咋补记录？",
+    "intent": "consult",
+    "gold_section": "HR-AT-01/correction",
+    "complete": false,
+    "design_note": "Informal phrase without formal policy term"
+  },
+  {
+    "id": "I05",
+    "question": "年假咋申？",
+    "intent": "consult",
+    "gold_section": "HR-LV-01/annual",
+    "complete": false,
+    "design_note": "Short colloquial wording"
+  },
+  {
+    "id": "I06",
+    "question": "我就问问年假怎么弄，别建单",
+    "intent": "consult",
+    "gold_section": "HR-LV-01/annual",
+    "complete": false,
+    "design_note": "Colloquial negation"
+  },
+  {
+    "id": "I07",
+    "question": "帮我申请明天事假，家里有事",
+    "intent": "draft",
+    "gold_section": "HR-LV-01/personal",
+    "complete": false,
+    "design_note": "Unlabelled reason and incomplete fields",
+    "request_type": "personal_leave"
+  },
+  {
+    "id": "I08",
+    "question": "想把社宝转过去，咋弄？",
+    "intent": "consult",
+    "gold_section": "HR-SC-01/transfer",
+    "complete": false,
+    "design_note": "Chinese misspelling"
+  },
+  {
+    "id": "I09",
+    "question": "补卡多久内弄？",
+    "intent": "consult",
+    "gold_section": "HR-AT-01/correction",
+    "complete": false,
+    "design_note": "Short informal consultation"
+  },
+  {
+    "id": "I10",
+    "question": "年假",
+    "intent": "clarify",
+    "gold_section": null,
+    "complete": false,
+    "design_note": "Ambiguous single term"
+  },
+  {
+    "id": "I11",
+    "question": "how much housing fund balance do I have?",
+    "intent": "consult",
+    "gold_section": "HR-SC-01/fund",
+    "complete": false,
+    "design_note": "Personal account limit and English alias"
+  },
+  {
+    "id": "I12",
+    "question": "帮我补卡，E9012，2026-09-20，原因：漏打卡；联系：portal",
+    "intent": "draft",
+    "gold_section": "HR-AT-01/correction",
+    "complete": true,
+    "design_note": "Explicit positive control",
+    "request_type": "attendance_correction",
+    "expected_ticket": {
+      "employee_id": "E9012",
+      "request_type": "attendance_correction",
+      "requested_date": "2026-09-20",
+      "reason": "漏打卡",
+      "contact_channel": "portal"
+    }
+  }
+]

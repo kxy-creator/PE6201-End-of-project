@@ -1,0 +1,5 @@
+# Local secrets and machine-generated files
+API key.docx
+.DS_Store
+__pycache__/
+*.py[cod]
