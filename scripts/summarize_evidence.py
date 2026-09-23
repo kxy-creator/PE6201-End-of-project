@@ -26,6 +26,10 @@ rows = live['rows']
 api = [row['result'] for row in rows if row['result']['mode_used'] == 'openrouter']
 api_cost = sum(result['usage']['cost'] for result in api)
 mean_api_cost = api_cost / len(api)
+models = sorted({result['model'] for result in api})
+assert models == ['openai/gpt-4o-mini'], f'Expected one saved model, got {models}'
+mean_prompt_tokens = statistics.mean(result['usage']['prompt_tokens'] for result in api)
+mean_completion_tokens = statistics.mean(result['usage']['completion_tokens'] for result in api)
 
 rules_per_quarter_midpoint = (RULES_PER_QUARTER_MIN + RULES_PER_QUARTER_MAX) / 2
 quarterly_maintenance_hours = rules_per_quarter_midpoint * MINUTES_PER_RULE / 60
@@ -46,15 +50,33 @@ for useful_resolution_rate in [0.2, 0.5, 0.8]:
 
 metrics = live['metrics']
 out = {
-    'policy_answer_review': {'passed': sum(row['pass'] for row in review['rows']), 'total': len(review['rows']), 'method': 'AI-assisted retrospective judgments, not an independent human or pre-registered evaluation'},
-    'ticket_first_turn_completion': metrics['all_ticket_completion'],
+    'answer_quality_review': {
+        'passed': sum(row['pass'] for row in review['rows']),
+        'total': len(review['rows']),
+        'method': 'AI-assisted retrospective content review; a human spot check is still required before operational use',
+    },
+    'ticket_structural_pass_rate': {
+        'passed': metrics['ticket_schema_validity']['passed'],
+        'total': metrics['ticket_schema_validity']['total'],
+        'definition': 'Valid JSON object with exactly five fields and the correct request type',
+    },
+    'ticket_first_turn_completion': {
+        **metrics['all_ticket_completion'],
+        'definition': 'Complete five-field ticket on the first turn; distinct from structural validity',
+    },
     'intent_accuracy': metrics['intent_accuracy'],
     'escalation_rate': {'count': sum(row['result']['intent'] == 'escalate' for row in rows), 'total': len(rows)},
     'clarification_rate': {'count': sum(row['result']['intent'] == 'clarify' for row in rows), 'total': len(rows)},
     'api_responses': len(api),
     'api_error_count': sum(bool(result['api_error']) for result in api),
     'provider_reported_cost_usd': round(api_cost, 9),
-    'mean_cost_per_api_response_usd': round(mean_api_cost, 9),
+    'model_per_query': {
+        'model': models[0],
+        'responses': len(api),
+        'mean_prompt_tokens': round(mean_prompt_tokens, 2),
+        'mean_completion_tokens': round(mean_completion_tokens, 2),
+        'mean_provider_reported_cost_usd': round(mean_api_cost, 9),
+    },
     'api_only_median_elapsed_ms': statistics.median(result['elapsed_ms'] for result in api),
     'rule_maintenance_cost': {
         'instructor_provided_rules_per_quarter_range': [RULES_PER_QUARTER_MIN, RULES_PER_QUARTER_MAX],
@@ -65,6 +87,11 @@ out = {
         'quarterly_maintenance_cost_usd': quarterly_maintenance_cost,
         'monthly_maintenance_cost_usd': monthly_maintenance_cost,
     },
+    'manual_answer_spot_check': {
+        'status': 'not yet completed',
+        'protocol': 'tests/MANUAL_ANSWER_SPOT_CHECK.md',
+        'use_in_cost_model': 'Use a completed human spot-check pass rate as the useful-resolution input; do not substitute ticket structural validity.',
+    },
 }
 
 summary = {
@@ -73,8 +100,36 @@ summary = {
     ),
     'provider_reported_cost_usd': round(api_cost, 9),
     'mean_per_api_response_usd': round(mean_api_cost, 9),
+    'gpt_4o_mini_per_query': {
+        'model': models[0],
+        'responses': len(api),
+        'mean_prompt_tokens': round(mean_prompt_tokens, 2),
+        'mean_completion_tokens': round(mean_completion_tokens, 2),
+        'mean_provider_reported_cost_usd': round(mean_api_cost, 9),
+    },
     'two_saved_runs_cost_usd': 0.00618615,
     'api_median_elapsed_ms': statistics.median(result['elapsed_ms'] for result in api),
+    'outcome_metrics': {
+        'ticket_structural_pass_rate': {
+            'passed': metrics['ticket_schema_validity']['passed'],
+            'total': metrics['ticket_schema_validity']['total'],
+            'definition': 'Valid JSON object with exactly five fields and the correct request type',
+        },
+        'ticket_first_turn_completion': {
+            'passed': metrics['all_ticket_completion']['passed'],
+            'total': metrics['all_ticket_completion']['total'],
+            'definition': 'Complete five-field ticket on the first turn',
+        },
+        'answer_quality_review': {
+            'passed': sum(row['pass'] for row in review['rows']),
+            'total': len(review['rows']),
+            'method': 'AI-assisted retrospective review; not a completed human spot check',
+        },
+        'manual_answer_spot_check': {
+            'status': 'not yet completed',
+            'protocol': 'tests/MANUAL_ANSWER_SPOT_CHECK.md',
+        },
+    },
     'rule_maintenance': {
         'basis': 'Instructor feedback: 15 to 20 regex rules rewritten every quarter.',
         'rules_per_quarter_range': [RULES_PER_QUARTER_MIN, RULES_PER_QUARTER_MAX],
@@ -89,13 +144,14 @@ summary = {
         'monthly_enquiries': MONTHLY_ENQUIRIES,
         'usd_hour': LABOUR_RATE_USD_PER_HOUR,
         'minutes_saved': MINUTES_SAVED_PER_USEFUL_ENQUIRY,
+        'useful_resolution_rate_definition': 'Human spot-check pass rate for the answering workload; scenario values only until a spot check is completed',
         'monthly_api_cost_usd': monthly_api_cost,
         'setup_usd': INITIAL_SETUP_USD,
     },
     'sensitivity': sensitivity,
 }
 
-assert out['policy_answer_review']['passed'] == 22
+assert out['answer_quality_review']['passed'] == 22
 assert out['ticket_first_turn_completion']['passed'] == 5
 SUMMARY_PATH.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + '\n')
 print(json.dumps(out, ensure_ascii=False, indent=2))

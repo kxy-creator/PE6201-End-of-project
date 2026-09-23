@@ -19,12 +19,15 @@ python3 run_openrouter.py
 ```
 Enter the API key only after the hidden prompt, select **OpenRouter** in the webpage, and check that actual mode is `openrouter`. Never commit keys. An API error falls back visibly to local excerpts; fallback is not a model response. The default model is `openai/gpt-4o-mini`; the `HRASK_MODEL` environment variable can override it. Historical scores apply only to the saved model and source revision.
 
+**Class 5 per-query cost:** the saved 25 `openai/gpt-4o-mini` responses average 666.32 input tokens plus 73.68 output tokens and USD 0.000144156 in provider-reported cost per query; 400 comparable queries would cost about USD 0.0577 per month. This is variable inference cost, not cost per successfully resolved enquiry.
+
 ## Separate outcomes
 
 | Measure | Saved result | Meaning |
 |---|---:|---|
-| Policy answers | 22/25 (88%) | Retrospective AI-assisted content review; not independent human validation |
-| Complete tickets across all requests | 5/8 (62.5%) | Below the revised proposal target of >85% |
+| Answer-quality review | 22/25 (88%) | Retrospective AI-assisted content review; not a completed human spot check |
+| Ticket structural pass rate | 8/8 (100%) | Valid JSON, exactly five fields and correct request type; structured output and validation make this a narrow measure |
+| Complete tickets across all requests | 5/8 (62.5%) | First-turn workflow completion, distinct from ticket structural validity; below the revised proposal target of >85% |
 | Complete-input ticket cases | 5/5 | All required input available |
 | Safe incomplete drafts | 3/3 | Unknown fields preserved; not completed tickets |
 | Intent accuracy | 30/30 | Known development questions |
@@ -37,7 +40,7 @@ Enter the API key only after the hidden prompt, select **OpenRouter** in the web
 
 The September 21 revised run has 25 accepted OpenRouter responses and no API errors; the other five cases are handled locally. The earlier live run passed only 22/30 engineering tasks and 0/8 draft schemas. The prompt repair distinguishes drafting from submitting. The September 23 informal diagnostic does not call an API and is not a live-model robustness score. No dataset is an independent holdout.
 
-`results/openrouter.json` is frozen historical evidence. Do not overwrite it casually. Its full source, dataset and policy hashes support traceability. Content review labels were authored after reading those outputs, and this timing is explicitly disclosed. The supplied revised proposal's stronger goal of expected answers fixed before the original live test was not met retrospectively.
+`results/openrouter.json` is frozen historical evidence. Do not overwrite it casually. Its full source, dataset and policy hashes support traceability. Content review labels were authored after reading those outputs, and this timing is explicitly disclosed. The supplied revised proposal's stronger goal of expected answers fixed before the original live test was not met retrospectively. Use `tests/MANUAL_ANSWER_SPOT_CHECK.md` to score answer quality manually after a material release; do not use ticket structure as a proxy for answer quality.
 
 ## Reproduce without an API key
 
@@ -75,7 +78,7 @@ Known defects include redundant requests for a name, an overly absolute response
 
 ## Costs and deployment limits
 
-The revised run reports USD 0.0036039 across 25 API responses in provider metadata. It is not a reconciled account bill. The cost model uses instructor feedback that 15–20 regex rules require rewriting each quarter; its midpoint is combined with transparent assumptions about minutes per rule and hourly labour rate. No real productivity savings, production deployment, security certification or independent HR review are claimed. No submission or approval tools exist.
+The revised run reports USD 0.0036039 across 25 API responses in provider metadata. It is not a reconciled account bill. The cost model uses instructor feedback that 15–20 regex rules require rewriting each quarter; its midpoint is combined with transparent assumptions about minutes per rule and hourly labour rate. The useful-resolution scenarios represent the policy-answering workload and must be supplied by a completed human answer-quality spot check, not by ticket structural validity. No real productivity savings, production deployment, security certification or independent HR review are claimed. No submission or approval tools exist.
 
 ## Attribution and outstanding submission steps
 

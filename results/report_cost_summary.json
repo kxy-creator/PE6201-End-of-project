@@ -3,8 +3,36 @@
   "api_responses": 25,
   "provider_reported_cost_usd": 0.0036039,
   "mean_per_api_response_usd": 0.000144156,
+  "gpt_4o_mini_per_query": {
+    "model": "openai/gpt-4o-mini",
+    "responses": 25,
+    "mean_prompt_tokens": 666.32,
+    "mean_completion_tokens": 73.68,
+    "mean_provider_reported_cost_usd": 0.000144156
+  },
   "two_saved_runs_cost_usd": 0.00618615,
   "api_median_elapsed_ms": 2134.454,
+  "outcome_metrics": {
+    "ticket_structural_pass_rate": {
+      "passed": 8,
+      "total": 8,
+      "definition": "Valid JSON object with exactly five fields and the correct request type"
+    },
+    "ticket_first_turn_completion": {
+      "passed": 5,
+      "total": 8,
+      "definition": "Complete five-field ticket on the first turn"
+    },
+    "answer_quality_review": {
+      "passed": 22,
+      "total": 25,
+      "method": "AI-assisted retrospective review; not a completed human spot check"
+    },
+    "manual_answer_spot_check": {
+      "status": "not yet completed",
+      "protocol": "tests/MANUAL_ANSWER_SPOT_CHECK.md"
+    }
+  },
   "rule_maintenance": {
     "basis": "Instructor feedback: 15 to 20 regex rules rewritten every quarter.",
     "rules_per_quarter_range": [
@@ -22,6 +50,7 @@
     "monthly_enquiries": 400,
     "usd_hour": 25,
     "minutes_saved": 5,
+    "useful_resolution_rate_definition": "Human spot-check pass rate for the answering workload; scenario values only until a spot check is completed",
     "monthly_api_cost_usd": 0.057662399999999996,
     "setup_usd": 2000
   },
