@@ -7,6 +7,7 @@ import statistics
 ROOT = Path(__file__).resolve().parents[1]
 LIVE_PATH = ROOT / 'results' / 'openrouter.json'
 REVIEW_PATH = ROOT / 'results' / 'policy_answer_review.json'
+MANUAL_SPOT_CHECK_PATH = ROOT / 'results' / 'manual_answer_spot_check.json'
 SUMMARY_PATH = ROOT / 'results' / 'report_cost_summary.json'
 
 # Instructor-provided recurring workload; midpoint used for the illustrative calculation.
@@ -22,7 +23,11 @@ INITIAL_SETUP_USD = 2000
 
 live = json.loads(LIVE_PATH.read_text())
 review = json.loads(REVIEW_PATH.read_text())
+manual_spot_check = json.loads(MANUAL_SPOT_CHECK_PATH.read_text())
 assert review['source_sha256'] == hashlib.sha256(LIVE_PATH.read_bytes()).hexdigest(), 'Review belongs to a different live result file'
+assert manual_spot_check['source_live_sha256'] == hashlib.sha256(LIVE_PATH.read_bytes()).hexdigest(), 'Manual spot check belongs to a different live result file'
+assert manual_spot_check['passed'] == sum(row['pass'] for row in manual_spot_check['rows'])
+assert manual_spot_check['total'] == len(manual_spot_check['rows'])
 
 rows = live['rows']
 api = [row['result'] for row in rows if row['result']['mode_used'] == 'openrouter']
@@ -99,9 +104,15 @@ out = {
         'monthly_maintenance_cost_usd': monthly_maintenance_cost,
     },
     'manual_answer_spot_check': {
-        'status': 'not yet completed',
+        'status': 'completed',
+        'passed': manual_spot_check['passed'],
+        'total': manual_spot_check['total'],
+        'rate': manual_spot_check['rate'],
+        'reviewer_role': manual_spot_check['reviewer_role'],
+        'sample_selection_method': manual_spot_check['sample_selection_method'],
+        'limitations': manual_spot_check['limitations'],
         'protocol': 'tests/MANUAL_ANSWER_SPOT_CHECK.md',
-        'use_in_cost_model': 'Use a completed human spot-check pass rate as the useful-resolution input; do not substitute ticket structural validity.',
+        'use_in_cost_model': 'The completed 8/10 student spot check supplies the 80% useful-resolution scenario; do not substitute ticket structural validity.',
     },
 }
 
@@ -137,7 +148,13 @@ summary = {
             'method': 'AI-assisted retrospective review; not a completed human spot check',
         },
         'manual_answer_spot_check': {
-            'status': 'not yet completed',
+            'status': 'completed',
+            'passed': manual_spot_check['passed'],
+            'total': manual_spot_check['total'],
+            'rate': manual_spot_check['rate'],
+            'reviewer_role': manual_spot_check['reviewer_role'],
+            'sample_selection_method': manual_spot_check['sample_selection_method'],
+            'limitations': manual_spot_check['limitations'],
             'protocol': 'tests/MANUAL_ANSWER_SPOT_CHECK.md',
         },
     },
@@ -157,7 +174,7 @@ summary = {
         'minutes_saved_per_useful_enquiry': MINUTES_SAVED_PER_USEFUL_ENQUIRY,
         'minutes_per_unsuccessful_enquiry_for_human_fallback': MINUTES_PER_UNSUCCESSFUL_ENQUIRY,
         'human_fallback_cost_per_unsuccessful_enquiry_usd': fallback_cost_per_unsuccessful_enquiry,
-        'useful_resolution_rate_definition': 'Human spot-check pass rate for the answering workload; scenario values only until a spot check is completed',
+        'useful_resolution_rate_definition': 'Completed manual student spot-check pass rate for the answering workload. The observed 8/10 rate supplies the 80% scenario; remaining values are sensitivity scenarios.',
         'monthly_api_cost_usd': monthly_api_cost,
         'setup_usd': INITIAL_SETUP_USD,
     },

@@ -25,7 +25,8 @@ Enter the API key only after the hidden prompt, select **OpenRouter** in the web
 
 | Measure | Saved result | Meaning |
 |---|---:|---|
-| Answer-quality review | 22/25 (88%) | Retrospective AI-assisted content review; not a completed human spot check |
+| AI-assisted answer-quality review | 22/25 (88%) | Retrospective content review, retained separately from the manual review |
+| Manual answer-quality spot check | 8/10 (80%) | Student reviewer; stratified random sample, seed 20260925; not an independent HR review |
 | Ticket structural pass rate | 8/8 (100%) | Valid JSON, exactly five fields and correct request type; structured output and validation make this a narrow measure |
 | Complete tickets across all requests | 5/8 (62.5%) | First-turn workflow completion, distinct from ticket structural validity; below the revised proposal target of >85% |
 | Complete-input ticket cases | 5/5 | All required input available |
@@ -78,7 +79,7 @@ Known defects include redundant requests for a name, an overly absolute response
 
 ## Costs and deployment limits
 
-The revised run reports USD 0.0036039 across 25 API responses in provider metadata. It is not a reconciled account bill. The cost model has three layers: per-query model inference, expected HR fallback for unsuccessful enquiries, and recurring rule maintenance. It uses instructor feedback that 15–20 regex rules require rewriting each quarter; its midpoint is combined with transparent assumptions about minutes per rule and hourly labour rate. For the illustrative fallback scenario, each unsuccessful enquiry takes five HR minutes at USD 25/hour, or USD 2.0833; this is distinct from the five minutes saved by a useful resolution and is not a measured HR observation. At 50% useful resolution, the resulting operating cost is USD 2.33 per useful resolution and net monthly value is negative USD 48.67 before setup recovery. The useful-resolution scenarios must be supplied by a completed human answer-quality spot check, not by ticket structural validity. No real productivity savings, production deployment, security certification or independent HR review are claimed. No submission or approval tools exist.
+The revised run reports USD 0.0036039 across 25 API responses in provider metadata. It is not a reconciled account bill. The cost model has three layers: per-query model inference, expected HR fallback for unsuccessful enquiries, and recurring rule maintenance. It uses instructor feedback that 15–20 regex rules require rewriting each quarter; its midpoint is combined with transparent assumptions about minutes per rule and hourly labour rate. For the illustrative fallback scenario, each unsuccessful enquiry takes five HR minutes at USD 25/hour, or USD 2.0833; this is distinct from the five minutes saved by a useful resolution and is not a measured HR observation. At 50% useful resolution, the resulting operating cost is USD 2.33 per useful resolution and net monthly value is negative USD 48.67 before setup recovery. The completed manual student spot check is 8/10 (80%) and supplies the 80% useful-resolution scenario; it must not be replaced by ticket structural validity. No real productivity savings, production deployment, security certification or independent HR review are claimed. No submission or approval tools exist.
 
 ## Attribution and outstanding submission steps
 
@@ -86,4 +87,4 @@ AI assisted the implementation, synthetic policies, tests, review, report and vi
 
 The course Class 5 cost-to-serve material informed the report methodology; insurance-project results are not reused as HR evidence. The course source files are not redistributed in this package.
 
-GitHub publication is pending. Create a repository and upload this folder's project files, then record its verified URL in `SUBMISSION_LINKS.txt`. Keep the video and personal cover off a public repository if you prefer, and submit them through the course platform. The course requires code in GitHub: a ZIP alone does not fulfill that requirement. Verify grader access to all links and review/sign the self-appraisal before submission.
+GitHub publication is complete at `https://github.com/kxy-creator/PE6201-End-of-project`. Keep the video and personal cover off a public repository if you prefer, and submit them through the course platform. The course requires code in GitHub: a ZIP alone does not fulfill that requirement. Verify grader access to all links and review/sign the self-appraisal before submission.

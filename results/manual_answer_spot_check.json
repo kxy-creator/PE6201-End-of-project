@@ -1,0 +1,114 @@
+{
+  "review_date": "2026-09-25",
+  "reviewer_role": "Student reviewer",
+  "reviewer_confirmation": "Student reviewer confirmed the two recorded failures and the eight passes.",
+  "policy_version": "Active policy snapshot 1.0, effective 2026-09-01",
+  "source_live_sha256": "1ba52356fd1e844551a053a8365d2e992397701b35d74182b68a618424d9167b",
+  "sample_selection_method": "Stratified random sample of 10 eligible policy answers using seed 20260925: Leave 3, Attendance 3, Social insurance 3, Workflow 1.",
+  "passed": 8,
+  "total": 10,
+  "rate": 0.8,
+  "limitations": "A student-performed spot check, not an independent HR review. It is reported separately from the earlier AI-assisted retrospective review.",
+  "rows": [
+    {
+      "id": "T06",
+      "policy_section": "HR-LV-01/cancel",
+      "core_policy_conclusion_supported": true,
+      "material_caveat_or_escalation_present": true,
+      "no_material_unsupported_claim": true,
+      "safe_for_stated_request": true,
+      "pass": true,
+      "failure_reason": null
+    },
+    {
+      "id": "T03",
+      "policy_section": "HR-LV-01/annual",
+      "core_policy_conclusion_supported": true,
+      "material_caveat_or_escalation_present": false,
+      "no_material_unsupported_claim": true,
+      "safe_for_stated_request": true,
+      "pass": false,
+      "failure_reason": "The answer omits the urgent-case route to contact the manager in HR-LV-01/annual."
+    },
+    {
+      "id": "T09",
+      "policy_section": "HR-LV-01/personal",
+      "core_policy_conclusion_supported": true,
+      "material_caveat_or_escalation_present": false,
+      "no_material_unsupported_claim": true,
+      "safe_for_stated_request": true,
+      "pass": false,
+      "failure_reason": "The answer omits the pay-impact caveat in HR-LV-01/personal; HR must determine pay effects."
+    },
+    {
+      "id": "T13",
+      "policy_section": "HR-AT-01/correction",
+      "core_policy_conclusion_supported": true,
+      "material_caveat_or_escalation_present": true,
+      "no_material_unsupported_claim": true,
+      "safe_for_stated_request": true,
+      "pass": true,
+      "failure_reason": null
+    },
+    {
+      "id": "T16",
+      "policy_section": "HR-AT-01/shift",
+      "core_policy_conclusion_supported": true,
+      "material_caveat_or_escalation_present": true,
+      "no_material_unsupported_claim": true,
+      "safe_for_stated_request": true,
+      "pass": true,
+      "failure_reason": null
+    },
+    {
+      "id": "T17",
+      "policy_section": "HR-AT-01/correction",
+      "core_policy_conclusion_supported": true,
+      "material_caveat_or_escalation_present": true,
+      "no_material_unsupported_claim": true,
+      "safe_for_stated_request": true,
+      "pass": true,
+      "failure_reason": null
+    },
+    {
+      "id": "T26",
+      "policy_section": "HR-SC-01/transfer",
+      "core_policy_conclusion_supported": true,
+      "material_caveat_or_escalation_present": true,
+      "no_material_unsupported_claim": true,
+      "safe_for_stated_request": true,
+      "pass": true,
+      "failure_reason": null
+    },
+    {
+      "id": "T25",
+      "policy_section": "HR-SC-01/transfer",
+      "core_policy_conclusion_supported": true,
+      "material_caveat_or_escalation_present": true,
+      "no_material_unsupported_claim": true,
+      "safe_for_stated_request": true,
+      "pass": true,
+      "failure_reason": null
+    },
+    {
+      "id": "T22",
+      "policy_section": "HR-SC-01/transfer",
+      "core_policy_conclusion_supported": true,
+      "material_caveat_or_escalation_present": true,
+      "no_material_unsupported_claim": true,
+      "safe_for_stated_request": true,
+      "pass": true,
+      "failure_reason": null
+    },
+    {
+      "id": "T27",
+      "policy_section": "HR-WF-01/fields",
+      "core_policy_conclusion_supported": true,
+      "material_caveat_or_escalation_present": true,
+      "no_material_unsupported_claim": true,
+      "safe_for_stated_request": true,
+      "pass": true,
+      "failure_reason": null
+    }
+  ]
+}
