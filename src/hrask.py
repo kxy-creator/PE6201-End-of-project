@@ -7,18 +7,52 @@ ROOT = Path(__file__).resolve().parents[1]
 FIELDS = ['employee_id', 'request_type', 'requested_date', 'reason', 'contact_channel']
 KINDS = ['annual_leave', 'sick_leave', 'personal_leave', 'attendance_correction', 'social_transfer']
 ALIASES = {'annual leave':'年假','sick leave':'病假','personal leave':'事假','clock in':'打卡','social insurance':'社保','housing fund':'公积金','paid time off':'年假','打卡异常':'补卡','忘打卡':'漏打卡'}
+# Intent classification distinguishes four safe workflow paths:
+# consultation answers a policy or process question without creating a ticket;
+# draft requires an explicit request to prepare a draft; clarify handles an
+# ambiguous request; and escalate handles sensitive, unsupported, unsafe, or
+# insufficiently grounded requests that require human HR review.
+#
+# Ticket extraction creates the same five-field schema for every draft:
+# employee_id, request_type, requested_date, reason, and contact_channel.
+# It extracts values only when the user supplies them. Missing values remain
+# null so that the application can request clarification instead of inventing
+# personal information or presenting an incomplete draft as complete.
+#
+# Validation accepts a draft as complete only when all five fields are present
+# and their values satisfy the expected formats and allowed request types.
+# Otherwise, the draft remains incomplete and the missing fields are reported.
+#
+# HRAsk.ask is the orchestration entry point. It normalizes the question,
+# retrieves policy evidence, classifies the request, and returns either a
+# grounded answer, an unsubmitted draft, a clarification request, or an HR
+# escalation. Escalation is used for sensitive or unsupported requests and
+# whenever the system lacks sufficient policy evidence for a safe response.
 def normalize(s):
+    """Normalize user input before retrieval and intent classification.
+
+    The function converts text to lowercase and replaces configured
+    aliases with canonical HR terms so that equivalent expressions
+    can be processed consistently.
+    """
     s=s.lower()
     for a,b in ALIASES.items(): s=s.replace(a,b)
     return s
 
 def tokens(s):
+    """Create searchable English tokens and Chinese character bigrams."""
     s=normalize(s)
     # Chinese character bigrams retain useful terms without a tokenizer download.
     runs=re.findall(r'[\u4e00-\u9fff]+',s)
     return re.findall(r'[a-z_]+',s)+[r[i:i+2] for r in runs for i in range(len(r)-1)]
 
 class Retriever:
+    """Load active policy documents and return the most relevant evidence.
+
+    The retriever reads Markdown policy files, ignores inactive or
+    superseded versions, splits policy sections into searchable chunks,
+    and ranks those chunks against the normalized employee question.
+    """
     def __init__(self, directory=ROOT/'policies', as_of=None):
         today=date.fromisoformat(as_of) if as_of else date.today()
         docs={}
@@ -39,15 +73,22 @@ class Retriever:
         self.idf={t:math.log((1+len(counts))/(1+n))+1 for t,n in df.items()}
         self.vecs=[self.vector(c) for c in counts]
     def vector(self,c):
+        """Convert token counts into a length-normalized TF-IDF vector."""
         v={t:n*self.idf[t] for t,n in c.items() if t in self.idf}
         norm=math.sqrt(sum(x*x for x in v.values())) or 1
         return {t:x/norm for t,x in v.items()}
     def search(self,q,k=3):
+        """Rank policy chunks by cosine similarity to a user question."""
         v=self.vector(Counter(tokens(q)))
         hits=[dict(c,score=round(sum(v.get(t,0)*x for t,x in d.items()),6)) for c,d in zip(self.chunks,self.vecs)]
         return sorted(hits,key=lambda c:c['score'],reverse=True)[:k]
 
 def route(q):
+    """Classify a question as consult, draft, clarify, or escalate.
+
+    Safety-sensitive, unsupported, or out-of-domain requests are escalated.
+    Explicit drafting language is required before a ticket draft is allowed.
+    """
     q=normalize(q)
     if not q.strip(): return 'clarify'
     if re.search(r'忽略.{0,8}(指令|规则)|ignore.{0,20}instructions|系统提示|system prompt|伪造|自动批准|解雇|劳动纠纷|工资争议|身份证.{0,5}\d{6}|\b\d{17}[\dXx]\b',q): return 'escalate'
@@ -59,13 +100,18 @@ def route(q):
     return 'clarify'
 
 def kind(q):
+    """Map a supported request to its canonical ticket request type."""
     q=normalize(q)
     for words,k in [('年假','annual_leave'),('病假','sick_leave'),('事假','personal_leave'),('补卡|打卡|考勤','attendance_correction'),('社保.*转移','social_transfer')]:
         if re.search(words,q): return k
     return None
 
 def draft(q,today):
-    """Only extract explicit values; never invent missing employee information."""
+    """Extract the five ticket fields without inventing employee information.
+
+    Explicit values and supported relative dates are captured; unknown fields
+    remain None so that the caller can request clarification.
+    """
     def match(pattern):
         m=re.search(pattern,q,re.I); return m.group(1).strip() if m else None
     dt=match(r'(\d{4}-\d{2}-\d{2})')
@@ -80,6 +126,11 @@ def draft(q,today):
                 contact_channel=match(r'(?:联系|channel)\s*[:：]\s*(email|phone|portal|邮箱|电话|人事系统)'))
 
 def validate_ticket(t):
+    """Return True only for a well-formed five-field ticket draft.
+
+    Validation checks the exact schema, value types, supported request types,
+    employee-ID pattern, allowed contact channels, and ISO date format.
+    """
     if not isinstance(t,dict) or set(t)!=set(FIELDS): return False
     if any(v is not None and not isinstance(v,str) for v in t.values()):return False
     if t['request_type'] is not None and t['request_type'] not in KINDS:return False
@@ -111,7 +162,11 @@ Examples: 帮我申请明天的年假 -> draft; 年假怎么申请 -> consult;
 """
 
 def generate_api(q,hits,provider):
-    """Strict JSON-schema response; validate citation IDs again locally."""
+    """Request a grounded JSON answer and validate it locally before use.
+
+    The provider response must contain a supported intent and citations drawn
+    only from the policy evidence retrieved for this question.
+    """
     key=os.getenv('OPENAI_API_KEY' if provider=='openai' else 'OPENROUTER_API_KEY')
     if not key: raise RuntimeError('API key is not configured')
     base='https://api.openai.com/v1' if provider=='openai' else 'https://openrouter.ai/api/v1'
@@ -133,10 +188,18 @@ def generate_api(q,hits,provider):
     return out,response.get('usage',{}),model
 
 class HRAsk:
+    """Coordinate retrieval, safe routing, optional generation, and drafting."""
     def __init__(self,threshold=0.08,as_of=None):
         self.today=date.fromisoformat(as_of) if as_of else date.today()
         self.retriever=Retriever(as_of=self.today.isoformat()); self.threshold=threshold
     def ask(self,q,mode='offline'):
+        """Process one question and return an auditable HR-Ask result.
+
+        The method validates input, retrieves policy evidence, selects a safe
+        workflow path, and optionally calls the configured model. It escalates
+        when the request is unsafe, unsupported, or lacks sufficient evidence;
+        it never submits or approves a ticket.
+        """
         start=time.perf_counter()
         if not isinstance(q,str) or len(q)>2000:raise ValueError('Question must be text of at most 2000 characters')
         intent=route(q); hits=self.retriever.search(q)
