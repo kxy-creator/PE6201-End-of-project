@@ -16,6 +16,8 @@ MINUTES_PER_RULE = 20  # Assumption: revision, regression test and release check
 LABOUR_RATE_USD_PER_HOUR = 25  # Illustrative rate, not observed payroll data.
 MONTHLY_ENQUIRIES = 400
 MINUTES_SAVED_PER_USEFUL_ENQUIRY = 5
+# Illustrative scenario only. This is not measured HR handling time and is distinct from minutes saved.
+MINUTES_PER_UNSUCCESSFUL_ENQUIRY = 5
 INITIAL_SETUP_USD = 2000
 
 live = json.loads(LIVE_PATH.read_text())
@@ -36,16 +38,25 @@ quarterly_maintenance_hours = rules_per_quarter_midpoint * MINUTES_PER_RULE / 60
 quarterly_maintenance_cost = quarterly_maintenance_hours * LABOUR_RATE_USD_PER_HOUR
 monthly_maintenance_cost = quarterly_maintenance_cost / 3
 monthly_api_cost = MONTHLY_ENQUIRIES * mean_api_cost
+fallback_cost_per_unsuccessful_enquiry = MINUTES_PER_UNSUCCESSFUL_ENQUIRY / 60 * LABOUR_RATE_USD_PER_HOUR
 
 sensitivity = []
 for useful_resolution_rate in [0.2, 0.5, 0.8]:
     gross_value = MONTHLY_ENQUIRIES * useful_resolution_rate * MINUTES_SAVED_PER_USEFUL_ENQUIRY / 60 * LABOUR_RATE_USD_PER_HOUR
-    net_monthly_value = gross_value - monthly_maintenance_cost - monthly_api_cost
+    monthly_expected_fallback_cost = MONTHLY_ENQUIRIES * (1 - useful_resolution_rate) * fallback_cost_per_unsuccessful_enquiry
+    monthly_operating_cost = monthly_api_cost + monthly_maintenance_cost + monthly_expected_fallback_cost
+    cost_per_query_attempt = monthly_operating_cost / MONTHLY_ENQUIRIES
+    cost_per_useful_resolution = monthly_operating_cost / (MONTHLY_ENQUIRIES * useful_resolution_rate)
+    net_monthly_value = gross_value - monthly_operating_cost
     sensitivity.append({
         'useful_resolution_rate': useful_resolution_rate,
         'gross_value_usd': gross_value,
+        'monthly_expected_fallback_cost_usd': monthly_expected_fallback_cost,
+        'monthly_operating_cost_usd': monthly_operating_cost,
+        'cost_per_query_attempt_usd': cost_per_query_attempt,
+        'cost_per_useful_resolution_usd': cost_per_useful_resolution,
         'net_monthly_value_usd': net_monthly_value,
-        'setup_payback_months': INITIAL_SETUP_USD / net_monthly_value,
+        'setup_payback_months': INITIAL_SETUP_USD / net_monthly_value if net_monthly_value > 0 else None,
     })
 
 metrics = live['metrics']
@@ -143,7 +154,9 @@ summary = {
     'assumptions': {
         'monthly_enquiries': MONTHLY_ENQUIRIES,
         'usd_hour': LABOUR_RATE_USD_PER_HOUR,
-        'minutes_saved': MINUTES_SAVED_PER_USEFUL_ENQUIRY,
+        'minutes_saved_per_useful_enquiry': MINUTES_SAVED_PER_USEFUL_ENQUIRY,
+        'minutes_per_unsuccessful_enquiry_for_human_fallback': MINUTES_PER_UNSUCCESSFUL_ENQUIRY,
+        'human_fallback_cost_per_unsuccessful_enquiry_usd': fallback_cost_per_unsuccessful_enquiry,
         'useful_resolution_rate_definition': 'Human spot-check pass rate for the answering workload; scenario values only until a spot check is completed',
         'monthly_api_cost_usd': monthly_api_cost,
         'setup_usd': INITIAL_SETUP_USD,
