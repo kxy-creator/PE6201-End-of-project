@@ -1,0 +1,31 @@
+1
+00:00:00,000 --> 00:00:19,443
+HR-Ask: an evidence-based HR policy and ticket-draft prototype
+
+2
+00:00:19,443 --> 00:00:37,532
+Retrieval, intent classification, extraction and five-field validation
+
+3
+00:00:37,532 --> 00:00:54,841
+Demo 1: consultation — policy evidence, no ticket created
+
+4
+00:00:54,841 --> 00:01:12,510
+Demo 2: complete draft — five fields present; pending human review
+
+5
+00:01:12,510 --> 00:01:30,308
+Demo 3: missing information — safe clarification, no invented data
+
+6
+00:01:30,308 --> 00:02:00,444
+Outcome metrics: ticket structure and answer quality reported separately
+
+7
+00:02:00,444 --> 00:02:20,088
+Cost model: model inference, human fallback and rule maintenance
+
+8
+00:02:20,088 --> 00:02:33,262
+Course prototype only: sensitive or unsupported cases escalate to HR

@@ -70,8 +70,9 @@ Known defects include redundant requests for a name, an overly absolute response
 - `docs/Final_Report.docx`: updated report and revised-proposal alignment.
 - `docs/Problem_Statement_Revised.docx`: supplied revised proposal, unchanged.
 - `docs/Self_Appraisal.docx`: evidence-based cover, with personal confirmation pending.
-- `docs/HR_Ask_English_Demo.mp4`: actual screenshots with synthetic English narration and subtitles.
-- `docs/English_Narration.txt`: matching narration.
+- `docs/HR_Ask_English_Demo_Updated.mp4`: current 2:33 demonstration using actual application screenshots, synthetic English narration, and burned-in English captions.
+- `docs/English_Video_Narration_Updated.txt`: matching current narration transcript.
+- `docs/HR_Ask_English_Demo_Updated.srt`: matching caption file.
 - `src/`, `policies/`, `tests/`: application, fictional evidence, tests and review rubric.
 - `results/`: frozen live evidence, separate policy review and diagnostics.
 - `scripts/summarize_evidence.py`: traceable metric and cost aggregation.

@@ -1,34 +1,15 @@
-# HR-Ask Video Script (Current Demonstration)
-
-**Duration:** approximately 2 minutes 33 seconds  
-**Format:** actual application screenshots, synthetic English narration, and English captions
-
-## Opening
-
 HR-Ask is my PE6201 course project. It is a prototype for answering employee questions from fictional HR policies and preparing safe, unsubmitted request drafts. The interface labels are English. The policy examples shown on screen are Chinese course data, which is permitted by the course brief.
-
-## How the system works
-
+---
 The system retrieves evidence from five fictional policy documents. It then classifies the request as consultation, draft, clarification, or escalation. For a draft, it extracts and validates five fields: employee ID, request type, date, reason, and contact channel.
-
-## Demonstration 1: consultation
-
+---
 This first live example is a policy consultation. The user asks, in Chinese, how many annual-leave days are available. The English-labelled interface identifies the intent as consultation, returns policy evidence, and creates no ticket because the user did not request a draft.
-
-## Demonstration 2: complete draft
-
+---
 This second example requests annual leave and supplies every required field. The system labels it as a draft. The ticket panel shows valid JSON with exactly five fields, and the interface confirms that all five are present. It remains pending human review and is never submitted or approved by this prototype.
-
-## Demonstration 3: missing information
-
+---
 The third example asks for leave tomorrow but does not provide the employee ID, date in the required format, reason, or contact channel. The system preserves the missing information and requests clarification instead of inventing personal data. This is an incomplete draft, not a successful completed ticket.
-
-## Evaluation and cost
-
+---
 I report structure and answer quality separately. In eight drafting cases, all eight tickets had valid five-field JSON and the right request type. Five were complete on the first turn, a completion rate of sixty-two point five percent. Answer quality was reviewed in two transparent ways: a retrospective AI-assisted review passed twenty-two of twenty-five policy answers, and my documented manual student spot check passed eight of ten sampled answers. The manual check is not independent HR validation.
-
+---
 The saved OpenRouter evidence shows an observed variable model-inference cost of about 0.000144 US dollars per query. This is not the total cost per successful resolution. The cost model separately includes human fallback and recurring rule maintenance, including fifteen to twenty regex rules rewritten each quarter.
-
-## Closing
-
+---
 HR-Ask is a course prototype with fictional data. It does not make legal decisions, approve leave, submit requests, or resolve sensitive disputes. Those cases are escalated to HR. Thank you for watching.
