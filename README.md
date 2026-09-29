@@ -3,6 +3,10 @@
 PE6201 End-of-Course Project — Kang Xingyao, Section C.
 A local HR policy assistant with evidence citations and unsubmitted five-field ticket drafts. All policies and employee examples are fictional. The evaluated core uses prompt version `draft-intent-v2`.
 
+## Language note
+
+The implementation structure is in English: filenames, classes, functions, variables, comments, and docstrings use English. Chinese strings are retained only as fictional policy content, user-input examples, and language-support terms so the prototype can retrieve and interpret its Chinese course data.
+
 ## Run
 
 Python 3.10+; the application and evaluator use the standard library. Extract the ZIP, open a terminal in this folder, and run:
