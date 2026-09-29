@@ -1,4 +1,4 @@
-Professor, this is HR-Ask, my PE6201 course project. It is a prototype for answering employee questions from fictional HR policies and preparing safe, unsubmitted request drafts. The interface labels are English. The policy examples shown on screen are Chinese course data, which is permitted by the course brief.
+Hello, Professor. This is HR-Ask, my course project. It is a prototype for answering employee questions from fictional HR policies and preparing safe, unsubmitted request drafts. The interface labels are English. The policy examples shown on screen are Chinese course data, which is permitted by the course brief.
 ---
 The system retrieves evidence from five fictional policy documents. It then classifies the request as consultation, draft, clarification, or escalation. For a draft, it extracts and validates five fields: employee ID, request type, date, reason, and contact channel.
 ---

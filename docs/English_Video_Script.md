@@ -5,7 +5,7 @@
 
 ## Opening
 
-Professor, this is HR-Ask, my PE6201 course project. It is a prototype for answering employee questions from fictional HR policies and preparing safe, unsubmitted request drafts. The interface labels are English. The policy examples shown on screen are Chinese course data, which is permitted by the course brief.
+Hello, Professor. This is HR-Ask, my course project. It is a prototype for answering employee questions from fictional HR policies and preparing safe, unsubmitted request drafts. The interface labels are English. The policy examples shown on screen are Chinese course data, which is permitted by the course brief.
 
 ## How the system works
 
