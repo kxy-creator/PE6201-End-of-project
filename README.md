@@ -5,7 +5,7 @@ A local HR policy assistant with evidence citations and unsubmitted five-field t
 
 ## Language note
 
-The implementation structure is in English: filenames, classes, functions, variables, comments, and docstrings use English. Chinese strings are retained only as fictional policy content, user-input examples, and language-support terms so the prototype can retrieve and interpret its Chinese course data.
+The implementation structure is in English: filenames, classes, functions, variables, comments, and docstrings use English. Chinese text is retained in fictional policies, user examples, routing and extraction patterns, model prompts, and application responses so the prototype can support Chinese HR enquiries. These are course data and application content, consistent with the instructor’s language guidance.
 
 ## Run
 
@@ -75,7 +75,7 @@ Known defects include redundant requests for a name, an overly absolute response
 - `docs/Problem_Statement_Revised.docx`: supplied revised proposal, unchanged.
 - `docs/Self_Appraisal.docx`: evidence-based cover, with personal confirmation pending.
 - `docs/HR_Ask_English_Demo_Updated.mp4`: current 2:33 demonstration using actual application screenshots, synthetic English narration, and burned-in English captions.
-- `docs/English_Video_Narration_Updated.txt`: matching current narration transcript.
+- `docs/English_Video_Narration_Updated.txt`: current English narration script. The MP4 still has an earlier synthetic narration track, so replace that track with a recording of this script if exact narration and video alignment is required.
 - `docs/HR_Ask_English_Demo_Updated.srt`: matching caption file.
 - `src/`, `policies/`, `tests/`: application, fictional evidence, tests and review rubric.
 - `results/`: frozen live evidence, separate policy review and diagnostics.
