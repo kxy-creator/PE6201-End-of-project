@@ -1,4 +1,11 @@
-"""Compare a fixed keyword FAQ with TF-IDF; sweep a non-probabilistic threshold."""
+"""Reproduce lightweight retrieval baselines for the report.
+
+This script compares a fixed keyword-to-policy FAQ with the local TF-IDF
+retriever, then sweeps several retrieval thresholds over the labelled
+development cases. It writes ``results/comparison.json``. The comparison checks
+policy-section retrieval and workflow outcomes only; it is not a controlled
+claim about general language understanding or answer correctness.
+"""
 import json
 from pathlib import Path
 from evaluate import evaluate

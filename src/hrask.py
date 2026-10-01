@@ -1,4 +1,14 @@
-"""HR-Ask: inspectable retrieval baseline and optional grounded LLM generation."""
+"""Core HR-Ask workflow.
+
+This module loads the fictional policy corpus, retrieves relevant evidence,
+classifies employee questions, extracts five-field request drafts, and validates
+that drafts are complete before returning them. ``HRAsk.ask`` is the public
+orchestration entry point used by the browser server and evaluation scripts.
+
+The offline path is reproducible with the Python standard library. Optional
+OpenRouter generation receives retrieved policy excerpts but cannot submit or
+approve HR actions; unsafe, unsupported, or weakly grounded requests escalate.
+"""
 from pathlib import Path
 from collections import Counter
 from datetime import date, timedelta

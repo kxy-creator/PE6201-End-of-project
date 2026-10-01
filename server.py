@@ -1,4 +1,11 @@
-"""Loopback-only demonstration UI. No authentication or production submission."""
+"""Run the loopback-only HR-Ask demonstration web server.
+
+The server serves ``demo.html`` at ``/`` and accepts a question plus requested
+mode at ``/ask``. It passes the request to :class:`src.hrask.HRAsk` and returns
+JSON for the browser interface. It binds only to localhost, restricts accepted
+origins and request size, and exposes no authentication, database, or request
+submission capability. It is a course demo, not a production deployment.
+"""
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 import json

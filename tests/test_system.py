@@ -1,3 +1,12 @@
+"""Regression tests for policy loading, safe routing, drafts, and API boundaries.
+
+These tests use fictional Chinese HR inputs and mocked model responses where
+needed. They check deterministic program behaviour, such as null preservation,
+schema validation, escalation, and visible API fallback. They do not evaluate
+the semantic correctness of live model answers; that evidence is recorded in
+the separate review and manual spot-check files.
+"""
+
 import unittest, tempfile
 from pathlib import Path
 from unittest.mock import patch

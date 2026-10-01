@@ -1,4 +1,12 @@
-"""Recompute saved evidence, API cost and transparent rule-maintenance cost."""
+"""Aggregate saved evaluation evidence and the transparent cost scenario.
+
+The script reads frozen live results plus answer-quality and manual spot-check
+records, verifies that their hashes refer to the same saved run, and writes the
+summary used in the report. It separates provider-reported inference cost per
+query from illustrative human fallback and quarterly rule-maintenance costs.
+It makes no API call and does not claim that its assumptions are measured HR
+operational data.
+"""
 from pathlib import Path
 import hashlib
 import json

@@ -1,4 +1,13 @@
-"""Run labelled synthetic cases. Report each denominator; no fabricated LLM success."""
+"""Evaluate HR-Ask against labelled synthetic cases.
+
+Each input case supplies expected routing and, where relevant, policy section,
+ticket type, completion status, and draft fields. The module runs the selected
+offline or API-backed mode, writes a traceable JSON result, and reports each
+metric with its own eligible denominator. Structural ticket validity, workflow
+completion, retrieval checks, and answer quality are deliberately not merged
+into one accuracy claim. API fallback is recorded rather than counted as a
+model response.
+"""
 import argparse, hashlib, json, platform, statistics, subprocess, sys
 from datetime import datetime, timezone
 from pathlib import Path
