@@ -19,6 +19,16 @@ The project investigates whether a small evidence-based HR assistant can:
 
 The evaluated core uses prompt version `draft-intent-v2`.
 
+## Persona and product contract
+
+**Primary persona:** a manufacturing-team leader who needs quick, consistent guidance on a fictional company HR policy outside HR office hours. The user may ask a policy question or ask the system to prepare an unsubmitted leave, attendance-correction, or social-insurance request draft.
+
+**Input:** a free-text employee question, usually in Chinese, plus any available employee ID, request type, date, reason, and contact channel.
+
+**Output:** retrieved policy evidence, a routing decision (`consult`, `draft`, `clarify`, or `escalate`), and, for explicit draft requests, a five-field JSON draft with completeness status and missing-field prompts.
+
+**Human boundary:** HR-Ask never approves, submits, or executes a personnel action. Sensitive, unsupported, or low-evidence requests are referred to human HR staff.
+
 ## What the system does
 
 ```mermaid
