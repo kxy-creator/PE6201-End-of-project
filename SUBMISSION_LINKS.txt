@@ -5,8 +5,10 @@ GitHub repository:
 https://github.com/kxy-creator/PE6201-End-of-project
 
 Demo video:
-https://github.com/kxy-creator/PE6201-End-of-project/blob/main/docs/HR_Ask_English_Demo_Final_With_Voice.mp4
+https://github.com/kxy-creator/PE6201-End-of-project/blob/main/docs/HR_Ask_Demo_Kang%20Xingyao.mp4
 
-Submitted files:
-- Final report
-- Completed self-appraisal cover document
+Final report (PDF):
+https://github.com/kxy-creator/PE6201-End-of-project/blob/main/docs/Final-Report-Kang%20Xingyao.pdf
+
+Self-appraisal cover document:
+https://github.com/kxy-creator/PE6201-End-of-project/blob/main/docs/End_of_Course_Project_Self_Appraisal.pdf
