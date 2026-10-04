@@ -87,10 +87,10 @@ The implementation structure is in English: filenames, classes, functions, varia
 | `evaluate.py` | Runs labelled offline or live evaluation cases. |
 | `run_openrouter.py` | Starts OpenRouter API model mode or a live evaluation after an API key is entered locally. |
 | `compare.py` | Reproduces the keyword/threshold baseline comparison. |
-| `docs/Final-Report-Kang Xingyao.docx` and `.pdf` | Final report in editable and submission-ready formats. |
-| `docs/End_of_Course_Project_Self_Appraisal.pdf` | Required self-appraisal cover document. |
-| `docs/HR_Ask_Demo_Kang Xingyao.mp4` | Final recorded demonstration of the live application, with English subtitles and the student's narration. |
-| `docs/HR_Ask_BPMN.png` and `.svg` | BPMN-style workflow diagram used in the report. |
+| `docs-submission/Final-Report-Kang Xingyao.docx` and `.pdf` | Final report in editable and submission-ready formats. |
+| `docs-submission/End_of_Course_Project_Self_Appraisal.pdf` | Required self-appraisal cover document. |
+| `docs-submission/HR_Ask_Demo_Kang Xingyao.mp4` | Final recorded demonstration of the live application, with English subtitles and the student's narration. |
+| `docs-submission/HR_Ask_BPMN.png` and `.svg` | BPMN-style workflow diagram used in the report. |
 
 ## Requirements and installation
 
@@ -202,10 +202,10 @@ The illustrative fallback assumption is five HR minutes at USD 25/hour per unsuc
 
 The submission contains:
 
-1. a clear problem statement and final report in `docs/Final-Report-Kang Xingyao.pdf`;
+1. a clear problem statement and final report in `docs-submission/Final-Report-Kang Xingyao.pdf`;
 2. code and reproducible evidence in this GitHub repository;
-3. a recorded English video demonstration in `docs/HR_Ask_Demo_Kang Xingyao.mp4`; and
-4. the required self-appraisal cover document in `docs/End_of_Course_Project_Self_Appraisal.pdf`.
+3. a recorded English video demonstration in `docs-submission/HR_Ask_Demo_Kang Xingyao.mp4`; and
+4. the required self-appraisal cover document in `docs-submission/End_of_Course_Project_Self_Appraisal.pdf`.
 
 Before course submission, review the self-appraisal personally and verify that the course grader can access the GitHub repository and video as required.
 
