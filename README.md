@@ -79,7 +79,7 @@ The implementation structure is in English: filenames, classes, functions, varia
 |---|---|
 | `src/hrask.py` | Core retrieval, intent classification, ticket extraction, validation, local-answer generation, and optional model fallback. |
 | `server.py` | Loopback-only HTTP server for the demonstration page. |
-| `demo.html` | English-language browser interface for the demo. |
+| `hr_ask_web_app.html` | English-language browser interface for the demo. |
 | `policies/` | Fictional Markdown HR policy documents used as retrieval evidence. |
 | `tests/` | Synthetic labelled cases, manual answer-review rubric, and regression tests. |
 | `results/` | Saved evaluation evidence, manual-review records, diagnostic outputs, and cost summary. |

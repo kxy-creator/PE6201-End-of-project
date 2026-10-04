@@ -1,6 +1,6 @@
 """Run the loopback-only HR-Ask demonstration web server.
 
-The server serves ``demo.html`` at ``/`` and accepts a question plus requested
+The server serves ``hr_ask_web_app.html`` at ``/`` and accepts a question plus requested
 mode at ``/ask``. It passes the request to :class:`src.hrask.HRAsk` and returns
 JSON for the browser interface. It binds only to localhost, restricts accepted
 origins and request size, and exposes no authentication, database, or request
@@ -15,7 +15,7 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self,*args):pass
     def do_GET(self):
         if self.path!='/':self.send_error(404);return
-        data=Path(__file__).with_name('demo.html').read_bytes();self.send_response(200);self.send_header('Content-Type','text/html; charset=utf-8');self.end_headers();self.wfile.write(data)
+        data=Path(__file__).with_name('hr_ask_web_app.html').read_bytes();self.send_response(200);self.send_header('Content-Type','text/html; charset=utf-8');self.end_headers();self.wfile.write(data)
     def do_POST(self):
         if self.path!='/ask':self.send_error(404);return
         if self.headers.get('Origin') not in [None,'http://127.0.0.1:8765','http://localhost:8765']:self.send_error(403);return
